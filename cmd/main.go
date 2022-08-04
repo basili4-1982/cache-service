@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/bradfitz/gomemcache/memcache"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
@@ -8,6 +9,7 @@ import (
 	"net"
 	"service/internal/grpc_handlers"
 	"service/internal/memcached_service"
+	"service/pkg/cache"
 	"time"
 )
 
@@ -28,6 +30,8 @@ func main() {
 	cs := grpc_handlers.NewCacheService(memcached)
 
 	memcached_service.RegisterMemcachedServiceServer(serv, cs)
+
+	fmt.Println("Listen :8080")
 
 	listener, err := net.Listen("tcp", ":8080")
 
