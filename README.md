@@ -1,3 +1,3 @@
 # cache-service
 
-Run  go run ./cmd/main.go 
+*Run service:* make start 

@@ -6,5 +6,10 @@ protogen:
 	 --go-grpc_out=./internal \
 	 ./proto/**/*.proto
 
-up:
-	./docker/up-stage.sh
+up-cache:
+	docker run  -p 11211:11211  -d memcached memcached -m 64
+
+
+start: up-cache
+	   go mod tidy
+	   go run ./cmd/main.go
