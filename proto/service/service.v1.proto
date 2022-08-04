@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package service.cache.v1;
+
+option go_package = "/memcached_service";
+
+message Key{
+  string key = 1;
+}
+
+message Item{
+  string key = 1;
+  bytes value = 2;
+}
+
+message Result{
+  bool success = 1;
+  string error = 2;
+
+  Item item = 4;
+}
+
+message GetRequest{
+  string key = 1;
+}
+
+message GetResponse{
+  bool success = 1;
+  string error = 2;
+  Item item = 4;
+}
+
+message SetRequest{
+  string key = 1;
+  bytes value = 2;
+}
+
+message SetResponse{
+  bool success = 1;
+  string error = 2;
+}
+
+message DeleteRequest{
+  string key = 1;
+}
+
+message DeleteResponse{
+  bool success = 1;
+  string error = 2;
+}
+
+service MemcachedService{
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc Set(SetRequest) returns (SetResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
